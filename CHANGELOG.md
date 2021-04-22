@@ -6,9 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2021-04-22
+### Fixed
+- Include python script in Docker image.
+
 ## [0.0.1] - 2021-04-21
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/0.0.1...master
+[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/0.0.2...master
+[0.0.2]: https://github.com/ets-infra/drone-bump-version/compare/0.0.1...0.0.2
 [0.0.1]: https://github.com/ets-infra/drone-bump-version/releases/tag/0.0.1
