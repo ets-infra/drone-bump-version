@@ -35,7 +35,7 @@ type: docker
 name: default
 
 steps:
-- name: tag
+- name: bump_version
   image: etsinfra/drone-bump-version:0.0.1
   settings:
     changelog_path: custom_folder/CHANGELOG.md
