@@ -1,6 +1,6 @@
 # Supported tags and respective Dockerfile links
 
-- [`0.0.2`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/0/Dockerfile)
+- [`0.0.3`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/0/Dockerfile)
 
 # Quick reference (cont.)
 
@@ -36,7 +36,7 @@ name: default
 
 steps:
 - name: bump_version
-  image: etsinfra/drone-bump-version:0.0.2
+  image: etsinfra/drone-bump-version:latest
   settings:
     changelog_path: custom_folder/CHANGELOG.md
     version_file_path: custom_folder/__init__.py
