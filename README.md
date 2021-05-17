@@ -1,6 +1,6 @@
 # Supported tags and respective Dockerfile links
 
-- [`0.0.3`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/0/Dockerfile)
+- [`0.1.0`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/0/Dockerfile)
 
 # Quick reference (cont.)
 
@@ -24,6 +24,7 @@ The following steps are executed by this plugin:
 |:---|---|
 | changelog_path | Path to the changelog. Default to `CHANGELOG.md` in current folder. |
 | version_file_path | Path to the python file containing the version. If not provided, no file will be updated. |
+| skip_commit_author | If provided and the value matches the one from [the commit author user name](https://docs.drone.io/pipeline/environment/reference/drone-commit-author/), this plugin will not do anything. |
 
 # How to use this image
 
