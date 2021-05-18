@@ -20,6 +20,7 @@ def update_version_in_file(new_version: str):
 
 def bump_version():
     if os.getenv('PLUGIN_SKIP_COMMIT_AUTHOR') == os.getenv("DRONE_COMMIT_AUTHOR"):
+        print(f"Skipping version bump as commit author ({os.getenv('DRONE_COMMIT_AUTHOR')}) is {os.getenv('PLUGIN_SKIP_COMMIT_AUTHOR')}.")
         return
 
     changelog_path = os.getenv('PLUGIN_CHANGELOG_PATH', "CHANGELOG.md")
