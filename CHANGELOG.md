@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2021-05-18
+### Added
+- Add `github_token` parameter.
+- Add `user_name` parameter.
+- Add `user_email` parameter.
+
 ## [0.1.0] - 2021-05-17
 ### Added
 - Add `skip_commit_author` parameter.
@@ -22,7 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/0.1.0...master
+[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/0.2.0...master
+[0.2.0]: https://github.com/ets-infra/drone-bump-version/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/ets-infra/drone-bump-version/compare/0.0.3...0.1.0
 [0.0.3]: https://github.com/ets-infra/drone-bump-version/compare/0.0.2...0.0.3
 [0.0.2]: https://github.com/ets-infra/drone-bump-version/compare/0.0.1...0.0.2
