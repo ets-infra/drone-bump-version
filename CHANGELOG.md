@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2021-05-19
+### Fixed
+- Add missing `requests` dependency.
+
 ## [0.2.0] - 2021-05-18
 ### Added
 - Add `github_token` parameter.
@@ -28,7 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/0.2.0...master
+[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/0.2.1...master
+[0.2.1]: https://github.com/ets-infra/drone-bump-version/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/ets-infra/drone-bump-version/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/ets-infra/drone-bump-version/compare/0.0.3...0.1.0
 [0.0.3]: https://github.com/ets-infra/drone-bump-version/compare/0.0.2...0.0.3
