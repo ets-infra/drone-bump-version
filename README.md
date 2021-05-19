@@ -1,6 +1,6 @@
 # Supported tags and respective Dockerfile links
 
-- [`0.2.0`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/0/Dockerfile)
+- [`0.2.1`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/0/Dockerfile)
 
 # Quick reference (cont.)
 
