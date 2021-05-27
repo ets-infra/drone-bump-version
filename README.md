@@ -1,6 +1,6 @@
 # Supported tags and respective Dockerfile links
 
-- [`0.2.1`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/0/Dockerfile)
+- [`1.0.0`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/1/Dockerfile)
 
 # Quick reference (cont.)
 
@@ -16,7 +16,7 @@
 
 The following steps are executed by this plugin:
 
-1. Guess new version number based on the `Unreleased` changelog section.
+1. Guess new version number based on the `Unreleased` changelog section. If no changes can be found, the following steps are not performed.
 2. Move `Unreleased` changelog section within a new section for this new version.
 3. Optional: Update `__version__` value in version file.
 4. Commit and push changelog (and version file if provided).
