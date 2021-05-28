@@ -171,6 +171,10 @@ def bump_version():
     changelog_path = os.getenv('PLUGIN_CHANGELOG_PATH', "CHANGELOG.md")
     # Compute the new version number and update CHANGELOG
     new_version = keepachangelog.release(changelog_path)
+    if not new_version:
+        print(f"Skipping version bump as there is nothing to release.")
+        return
+
     files_to_commit = [changelog_path]
 
     # Update version in source code
