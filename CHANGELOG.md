@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2021-08-05
+### Fixed
+- Version bump is now properly performed even if previous versions do not have the same number of digits.
+
+### Added
+- Log the new version that will be used.
+
 ## [1.0.0] - 2021-05-27
 ### Changed
 - Do not fail but instead skip version bump if there is nothing to release.
@@ -36,7 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/1.0.0...master
+[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/1.0.1...master
+[1.0.1]: https://github.com/ets-infra/drone-bump-version/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/ets-infra/drone-bump-version/compare/0.2.1...1.0.0
 [0.2.1]: https://github.com/ets-infra/drone-bump-version/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/ets-infra/drone-bump-version/compare/0.1.0...0.2.0

@@ -175,6 +175,8 @@ def bump_version():
         print(f"Skipping version bump as there is nothing to release.")
         return
 
+    print(f"Bumping version to {new_version}.")
+
     files_to_commit = [changelog_path]
 
     # Update version in source code
