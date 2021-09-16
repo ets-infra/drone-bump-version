@@ -17,11 +17,12 @@ class GitHub:
         self.client = requests.Session()
         self.client.headers = {'Authorization': f"token {token}", "Accept": "application/vnd.github.v3+json"}
 
-    def get(self, uri: str) -> requests.Response:
+    def get(self, uri: str, raise_for_status: bool = True) -> requests.Response:
         response = self.client.get(
             url=f"{self.base_url}{uri}",
         )
-        response.raise_for_status()
+        if raise_for_status:
+            response.raise_for_status()
         return response
 
     def post(self, uri: str, content: dict) -> requests.Response:
@@ -105,12 +106,21 @@ class GitHub:
             ).json()['sha']
             self.update_last_commit(branch, new_commit)
         finally:
-            self.set_protection(branch, previous_protection)
+            if previous_protection:
+                self.set_protection(branch, previous_protection)
 
     def get_protection(self, branch: str) -> dict:
-        return self.get(
-            f"/branches/{branch}/protection",
-        ).json()
+        response = self.get(
+            f"/branches/{branch}/protection", raise_for_status=False
+        )
+
+        if 404 == response.status_code:
+            reason = response.json()["message"]
+            if "Branch not protected" == reason:
+                return {}
+
+        response.raise_for_status()
+        return response.json()
 
     def set_protection(self, branch: str, protection: dict) -> dict:
         required_pull_request_reviews = {
@@ -141,15 +151,16 @@ class GitHub:
 
     def disable_protection(self, branch: str) -> dict:
         previous_protection = self.get_protection("master")
-        self.set_protection(branch, {
-            "required_status_checks": None,
-            "enforce_admins": previous_protection["enforce_admins"],
-            "required_pull_request_reviews": None,
-            "restrictions": previous_protection["restrictions"],
-            "required_linear_history": previous_protection["required_linear_history"],
-            "allow_force_pushes": previous_protection["allow_force_pushes"],
-            "allow_deletions": previous_protection["allow_deletions"],
-        })
+        if previous_protection:
+            self.set_protection(branch, {
+                "required_status_checks": None,
+                "enforce_admins": previous_protection["enforce_admins"],
+                "required_pull_request_reviews": None,
+                "restrictions": previous_protection["restrictions"],
+                "required_linear_history": previous_protection["required_linear_history"],
+                "allow_force_pushes": previous_protection["allow_force_pushes"],
+                "allow_deletions": previous_protection["allow_deletions"],
+            })
         return previous_protection
 
 
