@@ -1,6 +1,6 @@
 # Supported tags and respective Dockerfile links
 
-- [`1.0.1`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/1/Dockerfile)
+- [`1.0.2`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/1/Dockerfile)
 
 # Quick reference (cont.)
 
@@ -26,7 +26,7 @@ The following steps are executed by this plugin:
 | changelog_path | Path to the changelog. Default to `CHANGELOG.md` in current folder. |
 | version_file_path | Path to the python file containing the version. If not provided, no file will be updated. |
 | skip_commit_author | If provided and the value matches the one from [the commit author user name](https://docs.drone.io/pipeline/environment/reference/drone-commit-author/), this plugin will not do anything. |
-| github_token | Token (repo permission) used to commit and update repository permissions temporarily. Default to [the drone GIT password](https://docs.drone.io/server/reference/drone-git-password/) (if available). Related user needs to have admin role in repository. |
+| github_token | Token (repo permission) used to commit (and update repository permissions temporarily if needed). Default to [the drone GIT password](https://docs.drone.io/server/reference/drone-git-password/) (if available). Related user needs to have admin role in repository. |
 | user_name | Name of the GIT commit user. Default to [the drone GIT user name](https://docs.drone.io/pipeline/environment/reference/drone-commit-author-name/). |
 | user_email | email of the GIT commit user. Default to [the drone GIT user email](https://docs.drone.io/pipeline/environment/reference/drone-commit-author-email/). |
 
