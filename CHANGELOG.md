@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2021-09-29
+### Fixed
+- Protection is now properly re-activated even if pull request reviews and/or status checks are not required.
+
 ## [1.0.2] - 2021-09-16
 ### Fixed
 - Version bump is now properly performed even if there is no branch protection.
@@ -47,7 +51,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/1.0.2...master
+[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/1.0.3...master
+[1.0.3]: https://github.com/ets-infra/drone-bump-version/compare/1.0.2...1.0.3
 [1.0.2]: https://github.com/ets-infra/drone-bump-version/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/ets-infra/drone-bump-version/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/ets-infra/drone-bump-version/compare/0.2.1...1.0.0
