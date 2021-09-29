@@ -130,7 +130,7 @@ class GitHub:
             } if (dismissal_restrictions := required_pull_request_reviews["dismissal_restrictions"]) else None,
             "dismiss_stale_reviews": required_pull_request_reviews["dismiss_stale_reviews"],
             "require_code_owner_reviews": required_pull_request_reviews["require_code_owner_reviews"],
-        } if (required_pull_request_reviews := protection["required_pull_request_reviews"]) else None
+        } if (required_pull_request_reviews := protection.get("required_pull_request_reviews")) else None
         restrictions = {
             "users": restrictions["users"],
             "teams": [team["slug"] for team in restrictions["teams"]],
@@ -139,7 +139,7 @@ class GitHub:
         return self.put(
             f"/branches/{branch}/protection",
             content={
-                "required_status_checks": protection["required_status_checks"],
+                "required_status_checks": protection.get("required_status_checks"),
                 "enforce_admins": (protection["enforce_admins"] or {}).get("enabled"),
                 "required_pull_request_reviews": required_pull_request_reviews,
                 "restrictions": restrictions,
