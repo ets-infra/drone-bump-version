@@ -125,14 +125,14 @@ class GitHub:
     def set_protection(self, branch: str, protection: dict) -> dict:
         required_pull_request_reviews = {
             "dismissal_restrictions": {
-                "users": dismissal_restrictions["users"],
+                "users": [user["login"] for user in dismissal_restrictions["users"]],
                 "teams": [team["slug"] for team in dismissal_restrictions["teams"]],
             } if (dismissal_restrictions := required_pull_request_reviews["dismissal_restrictions"]) else None,
             "dismiss_stale_reviews": required_pull_request_reviews["dismiss_stale_reviews"],
             "require_code_owner_reviews": required_pull_request_reviews["require_code_owner_reviews"],
         } if (required_pull_request_reviews := protection.get("required_pull_request_reviews")) else None
         restrictions = {
-            "users": restrictions["users"],
+            "users": [user["login"] for user in restrictions["users"]],
             "teams": [team["slug"] for team in restrictions["teams"]],
             "apps": restrictions["apps"],
         } if (restrictions := protection["restrictions"]) else None
