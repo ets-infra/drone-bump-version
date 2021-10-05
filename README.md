@@ -1,6 +1,6 @@
 # Supported tags and respective Dockerfile links
 
-- [`1.0.4`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/1/Dockerfile)
+- [`1.1.0`, `latest`](https://github.com/ets-infra/drone-bump-version/blob/master/1/Dockerfile)
 
 # Quick reference (cont.)
 
@@ -16,7 +16,7 @@
 
 The following steps are executed by this plugin:
 
-1. Guess new version number based on the `Unreleased` changelog section. If no changes can be found, the following steps are not performed.
+1. Guess new version number based on the `Unreleased` changelog section.
 2. Move `Unreleased` changelog section within a new section for this new version.
 3. Optional: Update `__version__` value in version file.
 4. Commit and push changelog (and version file if provided).
@@ -29,6 +29,8 @@ The following steps are executed by this plugin:
 | github_token | Token (repo permission) used to commit (and update repository permissions temporarily if needed). Default to [the drone GIT password](https://docs.drone.io/server/reference/drone-git-password/) (if available). Related user needs to have admin role in repository. |
 | user_name | Name of the GIT commit user. Default to [the drone GIT user name](https://docs.drone.io/pipeline/environment/reference/drone-commit-author-name/). |
 | user_email | email of the GIT commit user. Default to [the drone GIT user email](https://docs.drone.io/pipeline/environment/reference/drone-commit-author-email/). |
+| dry_run | If set, there will be no effective version bump. Default to dry-run if [this is a pull request](https://docs.drone.io/pipeline/environment/reference/drone-pull-request/). |
+| mandatory_changelog_entry | Step will fail if this is set and there is no changes in Unreleased section within changelog. Do nothing by default. |
 
 # How to use this image
 

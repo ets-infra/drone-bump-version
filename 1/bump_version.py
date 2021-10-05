@@ -6,6 +6,10 @@ import keepachangelog
 import requests
 
 
+def is_dry_run() -> bool:
+    return os.getenv("PLUGIN_DRY_RUN", os.getenv("DRONE_PULL_REQUEST"))
+
+
 class GitHub:
     def __init__(self):
         token = os.getenv('PLUGIN_GITHUB_TOKEN', os.getenv("DRONE_GIT_PASSWORD"))
@@ -89,24 +93,25 @@ class GitHub:
         previous_protection = self.disable_protection(branch)
         try:
             last_commit_sha = self.get_last_commit(branch)
-            tree_sha = self.push_files(last_commit_sha, *file_paths)
-            new_commit = self.post(
-                "/git/commits",
-                {
-                    "message": message,
-                    "author": {
-                        "name": user_name,
-                        "email": user_email
-                    },
-                    "parents": [
-                        last_commit_sha
-                    ],
-                    "tree": tree_sha
-                }
-            ).json()['sha']
-            self.update_last_commit(branch, new_commit)
+            if not is_dry_run():
+                tree_sha = self.push_files(last_commit_sha, *file_paths)
+                new_commit = self.post(
+                    "/git/commits",
+                    {
+                        "message": message,
+                        "author": {
+                            "name": user_name,
+                            "email": user_email
+                        },
+                        "parents": [
+                            last_commit_sha
+                        ],
+                        "tree": tree_sha
+                    }
+                ).json()['sha']
+                self.update_last_commit(branch, new_commit)
         finally:
-            if previous_protection:
+            if previous_protection and not is_dry_run():
                 self.set_protection(branch, previous_protection)
 
     def get_protection(self, branch: str) -> dict:
@@ -151,7 +156,7 @@ class GitHub:
 
     def disable_protection(self, branch: str) -> dict:
         previous_protection = self.get_protection("master")
-        if previous_protection:
+        if previous_protection and not is_dry_run():
             self.set_protection(branch, {
                 "required_status_checks": None,
                 "enforce_admins": previous_protection["enforce_admins"],
@@ -170,8 +175,9 @@ def update_version_in_file(version_file_path: str, new_version: str):
 
     new_content = re.sub('__version__ = ".*"', f'__version__ = "{new_version}"', previous_content)
 
-    with open(version_file_path, "wt") as version_file:
-        version_file.write(new_content)
+    if not is_dry_run():
+        with open(version_file_path, "wt") as version_file:
+            version_file.write(new_content)
 
 
 def bump_version():
@@ -183,7 +189,10 @@ def bump_version():
     # Compute the new version number and update CHANGELOG
     new_version = keepachangelog.release(changelog_path)
     if not new_version:
-        print(f"Skipping version bump as there is nothing to release.")
+        if os.getenv("PLUGIN_MANDATORY_CHANGELOG_ENTRY"):
+            raise Exception(f"{changelog_path} must contains a description of the changes (within Unreleased section).")
+
+        print("Skipping version bump as there is nothing to release.")
         return
 
     print(f"Bumping version to {new_version}.")
