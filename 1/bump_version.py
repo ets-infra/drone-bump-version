@@ -182,7 +182,7 @@ def bump_version():
     changelog_path = os.getenv('PLUGIN_CHANGELOG_PATH', "CHANGELOG.md")
     # Compute the new version number and update CHANGELOG
     new_version = keepachangelog.release(changelog_path)
-    if os.getenv("DRY_RUN"):
+    if os.getenv("PLUGIN_DRY_RUN"):
         if not new_version:
             raise ValueError(f"Prerequisites not met to create a a new version. Check {changelog_path} and make sure you have a valid Unreleased Section")
         print(f"Everything seems in order. Next version will be {new_version}")
