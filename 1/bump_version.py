@@ -189,7 +189,7 @@ def bump_version():
         return
 
     if not new_version:
-        print(f"Skipping version bump as there is nothing to release.")
+        print("Skipping version bump as there is nothing to release.")
         return
 
     print(f"Bumping version to {new_version}.")
