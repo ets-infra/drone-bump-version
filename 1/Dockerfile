@@ -1,4 +1,4 @@
-FROM python:3.9.7-buster
+FROM python:3.10.0-bullseye
 
 COPY bump_version.py /plugin_script/bump_version.py
 COPY requirements.txt /plugin_script/requirements.txt
