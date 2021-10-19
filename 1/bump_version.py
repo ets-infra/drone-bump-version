@@ -123,6 +123,7 @@ class GitHub:
             reason = response.json()["message"]
             if "Branch not protected" == reason:
                 return {}
+            raise Exception(f"The provided token does not allow to fetch {branch} branch protection. Related user must be Admin of this repository.")
 
         response.raise_for_status()
         return response.json()
