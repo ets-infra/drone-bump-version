@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2021-11-18
+### Fixed
+- Avoid failure if there is no restrictions set.
+
 ## [1.1.1] - 2021-10-19
 ### Fixed
 - Add an explicit error message in case user is not admin of the repository.
@@ -64,7 +68,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/1.1.1...master
+[Unreleased]: https://github.com/ets-infra/drone-bump-version/compare/1.1.2...master
+[1.1.2]: https://github.com/ets-infra/drone-bump-version/compare/1.1.1...1.1.2
 [1.1.1]: https://github.com/ets-infra/drone-bump-version/compare/1.1.0...1.1.1
 [1.1.0]: https://github.com/ets-infra/drone-bump-version/compare/1.0.4...1.1.0
 [1.0.4]: https://github.com/ets-infra/drone-bump-version/compare/1.0.3...1.0.4
