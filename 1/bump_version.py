@@ -141,17 +141,17 @@ class GitHub:
             "users": [user["login"] for user in restrictions["users"]],
             "teams": [team["slug"] for team in restrictions["teams"]],
             "apps": restrictions["apps"],
-        } if (restrictions := protection["restrictions"]) else None
+        } if (restrictions := protection.get("restrictions")) else None
         return self.put(
             f"/branches/{branch}/protection",
             content={
                 "required_status_checks": protection.get("required_status_checks"),
-                "enforce_admins": (protection["enforce_admins"] or {}).get("enabled"),
+                "enforce_admins": (protection.get("enforce_admins") or {}).get("enabled"),
                 "required_pull_request_reviews": required_pull_request_reviews,
                 "restrictions": restrictions,
-                "required_linear_history": (protection["required_linear_history"] or {}).get("enabled"),
-                "allow_force_pushes": (protection["allow_force_pushes"] or {}).get("enabled"),
-                "allow_deletions": (protection["allow_deletions"] or {}).get("enabled"),
+                "required_linear_history": (protection.get("required_linear_history") or {}).get("enabled"),
+                "allow_force_pushes": (protection.get("allow_force_pushes") or {}).get("enabled"),
+                "allow_deletions": (protection.get("allow_deletions") or {}).get("enabled"),
             }
         ).json()
 
@@ -160,12 +160,12 @@ class GitHub:
         if previous_protection and not is_dry_run():
             self.set_protection(branch, {
                 "required_status_checks": None,
-                "enforce_admins": previous_protection["enforce_admins"],
+                "enforce_admins": previous_protection.get("enforce_admins"),
                 "required_pull_request_reviews": None,
-                "restrictions": previous_protection["restrictions"],
-                "required_linear_history": previous_protection["required_linear_history"],
-                "allow_force_pushes": previous_protection["allow_force_pushes"],
-                "allow_deletions": previous_protection["allow_deletions"],
+                "restrictions": previous_protection.get("restrictions"),
+                "required_linear_history": previous_protection.get("required_linear_history"),
+                "allow_force_pushes": previous_protection.get("allow_force_pushes"),
+                "allow_deletions": previous_protection.get("allow_deletions"),
             })
         return previous_protection
 
