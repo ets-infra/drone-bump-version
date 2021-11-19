@@ -133,7 +133,7 @@ class GitHub:
             "dismissal_restrictions": {
                 "users": [user["login"] for user in dismissal_restrictions.get("users", [])],
                 "teams": [team["slug"] for team in dismissal_restrictions.get("teams", [])],
-            } if (dismissal_restrictions := required_pull_request_reviews.get("dismissal_restrictions")) else None,
+            } if (dismissal_restrictions := required_pull_request_reviews.get("dismissal_restrictions")) else {},
             "dismiss_stale_reviews": required_pull_request_reviews.get("dismiss_stale_reviews"),
             "require_code_owner_reviews": required_pull_request_reviews.get("require_code_owner_reviews"),
         } if (required_pull_request_reviews := protection.get("required_pull_request_reviews")) else None
