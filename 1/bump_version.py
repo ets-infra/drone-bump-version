@@ -129,6 +129,11 @@ class GitHub:
         return response.json()
 
     def set_protection(self, branch: str, protection: dict) -> dict:
+        required_status_checks = {
+            "strict": required_status_checks["strict"],
+            "contexts": required_status_checks.get("contexts", []),
+            "checks": required_status_checks.get("checks", []),
+        } if (required_status_checks := protection.get("required_status_checks")) else None
         required_pull_request_reviews = {
             "dismissal_restrictions": {
                 "users": [user["login"] for user in dismissal_restrictions.get("users", [])],
@@ -145,7 +150,7 @@ class GitHub:
         return self.put(
             f"/branches/{branch}/protection",
             content={
-                "required_status_checks": protection.get("required_status_checks"),
+                "required_status_checks": required_status_checks,
                 "enforce_admins": (protection.get("enforce_admins") or {}).get("enabled"),
                 "required_pull_request_reviews": required_pull_request_reviews,
                 "restrictions": restrictions,
