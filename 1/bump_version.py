@@ -134,6 +134,8 @@ class GitHub:
             "contexts": required_status_checks.get("contexts", []),
             "checks": required_status_checks.get("checks", []),
         } if (required_status_checks := protection.get("required_status_checks")) else None
+        if required_status_checks and not required_status_checks["contexts"]:
+            required_status_checks.pop("contexts")
         required_pull_request_reviews = {
             "dismissal_restrictions": {
                 "users": [user["login"] for user in dismissal_restrictions.get("users", [])],
