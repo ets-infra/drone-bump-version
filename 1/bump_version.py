@@ -1,6 +1,7 @@
 import os
 import re
 from typing import Iterable
+from urllib.parse import urljoin
 
 import keepachangelog
 import requests
@@ -188,6 +189,32 @@ def update_version_in_file(version_file_path: str, new_version: str):
             version_file.write(new_content)
 
 
+def add_ticket(changelog_path, new_version):
+    source_branch = os.getenv("DRONE_SOURCE_BRANCH")
+    print(f"The source_branch is {source_branch}")
+    if not source_branch:
+        return
+
+    # Get key of the ticket from the source branch name
+    match = re.search(os.getenv('PLUGIN_TICKET_PATTERN'), source_branch, re.IGNORECASE)
+    if not match:
+        return
+
+    ticket_key = match.group().upper()
+    ticket_url = urljoin(os.getenv('PLUGIN_TICKET_URL'), ticket_key)
+    ticket_md_link = f"[{ticket_key}]({ticket_url})"
+
+    # Rewrite the changelog file, adding the link to the ticket under the new version number.
+    with open(changelog_path, "r") as f:
+        lines = f.readlines()
+    for i, line in enumerate(lines):
+        if line.startswith(f"## [{new_version}]"):
+            lines.insert(i + 1, f"{ticket_md_link}\n")
+            break
+    with open(changelog_path, "w") as f:
+        f.writelines(lines)
+
+
 def bump_version():
     if os.getenv('PLUGIN_SKIP_COMMIT_AUTHOR') == os.getenv("DRONE_COMMIT_AUTHOR"):
         print(f"Skipping version bump as commit author ({os.getenv('DRONE_COMMIT_AUTHOR')}) is {os.getenv('PLUGIN_SKIP_COMMIT_AUTHOR')}.")
@@ -196,6 +223,8 @@ def bump_version():
     changelog_path = os.getenv('PLUGIN_CHANGELOG_PATH', "CHANGELOG.md")
     # Compute the new version number and update CHANGELOG
     new_version = keepachangelog.release(changelog_path)
+    add_ticket(changelog_path, new_version)
+
     if not new_version:
         if os.getenv("PLUGIN_MANDATORY_CHANGELOG_ENTRY"):
             raise Exception(f"{changelog_path} must contains a description of the changes (within Unreleased section).")
