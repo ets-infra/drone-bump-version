@@ -200,9 +200,8 @@ def add_ticket(changelog_path, new_version):
     if not (source_branch := os.getenv("DRONE_SOURCE_BRANCH")):
         return
 
-    # Get key of the ticket from the source branch name
-    match = re.search(ticket_key_pattern, source_branch, re.IGNORECASE)
-    if not match:
+    # Get ticket key from the source branch name
+    if not (match := re.search(ticket_key_pattern, source_branch, re.IGNORECASE)):
         return
 
     ticket_key = match.group().upper()
