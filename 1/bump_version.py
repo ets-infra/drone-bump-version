@@ -192,7 +192,7 @@ def update_version_in_file(version_file_path: str, new_version: str):
 def add_ticket(changelog_path, new_version):
     ticket_base_url = os.getenv('PLUGIN_TICKET_URL')
     if not ticket_base_url:
-        print(f"Not adding the ticket to changelog, because no url (PLUGIN_TICKET_URL) to ticketing was provided.")
+        return
 
     source_branch = os.getenv("DRONE_SOURCE_BRANCH")
     print(f"The source_branch is {source_branch}")
