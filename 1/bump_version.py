@@ -227,7 +227,6 @@ def bump_version():
     changelog_path = os.getenv('PLUGIN_CHANGELOG_PATH', "CHANGELOG.md")
     # Compute the new version number and update CHANGELOG
     new_version = keepachangelog.release(changelog_path)
-    add_ticket(changelog_path, new_version)
 
     if not new_version:
         if os.getenv("PLUGIN_MANDATORY_CHANGELOG_ENTRY"):
@@ -237,6 +236,8 @@ def bump_version():
         return
 
     print(f"Bumping version to {new_version}.")
+
+    add_ticket(changelog_path, new_version)
 
     files_to_commit = [changelog_path]
 
