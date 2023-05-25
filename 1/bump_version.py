@@ -190,17 +190,18 @@ def update_version_in_file(version_file_path: str, new_version: str):
 
 
 def add_ticket(changelog_path, new_version):
-    ticket_base_url = os.getenv('PLUGIN_TICKET_URL')
-    if not ticket_base_url:
+    if not (ticket_base_url := os.getenv("PLUGIN_TICKET_URL")):
         return
 
-    source_branch = os.getenv("DRONE_SOURCE_BRANCH")
-    print(f"The source_branch is {source_branch}")
-    if not source_branch:
+    if not (ticket_key_pattern := os.getenv("PLUGIN_TICKET_PATTERN")):
+        print(f"Skipping adding the ticket as no ticket pattern is provided.")
+        return
+
+    if not (source_branch := os.getenv("DRONE_SOURCE_BRANCH")):
         return
 
     # Get key of the ticket from the source branch name
-    match = re.search(os.getenv('PLUGIN_TICKET_PATTERN'), source_branch, re.IGNORECASE)
+    match = re.search(ticket_key_pattern, source_branch, re.IGNORECASE)
     if not match:
         return
 
