@@ -190,6 +190,10 @@ def update_version_in_file(version_file_path: str, new_version: str):
 
 
 def add_ticket(changelog_path, new_version):
+    ticket_base_url = os.getenv('PLUGIN_TICKET_URL')
+    if not ticket_base_url:
+        print(f"Not adding the ticket to changelog, because no url (PLUGIN_TICKET_URL) to ticketing was provided.")
+
     source_branch = os.getenv("DRONE_SOURCE_BRANCH")
     print(f"The source_branch is {source_branch}")
     if not source_branch:
@@ -201,7 +205,7 @@ def add_ticket(changelog_path, new_version):
         return
 
     ticket_key = match.group().upper()
-    ticket_url = urljoin(os.getenv('PLUGIN_TICKET_URL'), ticket_key)
+    ticket_url = urljoin(ticket_base_url, ticket_key)
     ticket_md_link = f"[{ticket_key}]({ticket_url})"
 
     # Rewrite the changelog file, adding the link to the ticket under the new version number.
