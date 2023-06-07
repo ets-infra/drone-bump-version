@@ -28,4 +28,5 @@ jobs:
           context: ./1
           push: true
           platforms: linux/amd64
-          tags: etsinfra/drone-bump-version:latest,etsinfra/drone-bump-version:1.2.2
+          provenance: false
+          tags: etsinfra/drone-bump-version:latest,etsinfra/drone-bump-version:1.2.3
