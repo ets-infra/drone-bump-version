@@ -191,6 +191,7 @@ def update_version_in_file(version_file_path: str, new_version: str):
 
 def add_ticket(changelog_path, new_version):
     if not (ticket_base_url := os.getenv("PLUGIN_TICKET_URL")):
+        print(f"Skipping adding the ticket as no ticket url is provided.")
         return
 
     if not (ticket_key_pattern := os.getenv("PLUGIN_TICKET_PATTERN")):
@@ -198,6 +199,7 @@ def add_ticket(changelog_path, new_version):
         return
 
     if not (source_branch := os.getenv("DRONE_SOURCE_BRANCH")):
+        print(f"Skipping adding the ticket as no source branch is provided.")
         return
 
     # Get ticket key from the source branch name
