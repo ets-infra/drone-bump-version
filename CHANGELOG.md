@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [1.2.4] - 2023-08-08
+### Fixed
+- Make sure to sync the `required_approving_review_count` setting when protection is being reactivated
 
 ## [1.2.3] - 2023-06-07
 ### Fixed
