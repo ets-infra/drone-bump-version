@@ -144,6 +144,7 @@ class GitHub:
             } if (dismissal_restrictions := required_pull_request_reviews.get("dismissal_restrictions")) else {},
             "dismiss_stale_reviews": required_pull_request_reviews.get("dismiss_stale_reviews"),
             "require_code_owner_reviews": required_pull_request_reviews.get("require_code_owner_reviews"),
+            "required_approving_review_count": required_pull_request_reviews["required_approving_review_count"],
         } if (required_pull_request_reviews := protection.get("required_pull_request_reviews")) else None
         restrictions = {
             "users": [user["login"] for user in restrictions.get("users", [])],
