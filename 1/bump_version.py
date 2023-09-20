@@ -132,11 +132,8 @@ class GitHub:
     def set_protection(self, branch: str, protection: dict) -> dict:
         required_status_checks = {
             "strict": required_status_checks["strict"],
-            "contexts": required_status_checks.get("contexts", []),
             "checks": required_status_checks.get("checks", []),
         } if (required_status_checks := protection.get("required_status_checks")) else None
-        if required_status_checks and not required_status_checks["contexts"]:
-            required_status_checks.pop("contexts")
         required_pull_request_reviews = {
             "dismissal_restrictions": {
                 "users": [user["login"] for user in dismissal_restrictions.get("users", [])],
@@ -161,6 +158,10 @@ class GitHub:
                 "required_linear_history": (protection.get("required_linear_history") or {}).get("enabled"),
                 "allow_force_pushes": (protection.get("allow_force_pushes") or {}).get("enabled"),
                 "allow_deletions": (protection.get("allow_deletions") or {}).get("enabled"),
+                "block_creations": (protection.get("block_creations") or {}).get("enabled"),
+                "required_conversation_resolution": (protection.get("required_conversation_resolution") or {}).get("enabled"),
+                "lock_branch": (protection.get("lock_branch") or {}).get("enabled"),
+                "allow_fork_syncing": (protection.get("allow_fork_syncing") or {}).get("enabled"),
             }
         ).json()
 
@@ -175,6 +176,10 @@ class GitHub:
                 "required_linear_history": previous_protection.get("required_linear_history"),
                 "allow_force_pushes": previous_protection.get("allow_force_pushes"),
                 "allow_deletions": previous_protection.get("allow_deletions"),
+                "block_creations": previous_protection.get("block_creations"),
+                "required_conversation_resolution": previous_protection.get("required_conversation_resolution"),
+                "lock_branch": previous_protection.get("lock_branch"),
+                "allow_fork_syncing": previous_protection.get("allow_fork_syncing"),
             })
         return previous_protection
 
